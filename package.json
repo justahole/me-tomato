@@ -2,7 +2,6 @@
   "name": "me-tomato",
   "version": "1.0.0",
   "description": "tomato heart",
-  "main": "index.js",
   "scripts": {
     "test": "jest"
   },

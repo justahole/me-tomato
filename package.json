@@ -1,0 +1,25 @@
+{
+  "name": "me-tomato",
+  "version": "1.0.0",
+  "description": "tomato heart",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/justahole/me-tomato.git"
+  },
+  "keywords": [
+    "tomato",
+    "typescript",
+    "koa",
+    "node"
+  ],
+  "author": "Ahole",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/justahole/me-tomato/issues"
+  },
+  "homepage": "https://github.com/justahole/me-tomato#readme"
+}

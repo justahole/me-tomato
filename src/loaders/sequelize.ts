@@ -10,10 +10,10 @@ export default async () => {
         host: config.database.host,
         dialect: 'mysql',
         pool: {
-          max: 5,
-          min: 0,
-          acquire: 30000,
-          idle: 10000,
+          max: config.database.pool.max,
+          min: config.database.pool.min,
+          acquire: config.database.pool.acquire,
+          idle: config.database.pool.idle,
         },
       },
   );

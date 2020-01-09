@@ -14,7 +14,6 @@ async function createServer() {
       config.app.port,
       () => console.log('server listen successfully ~~'),
   );
-  app.on('error', (err) => console.error('server error', err));
 }
 
 createServer();

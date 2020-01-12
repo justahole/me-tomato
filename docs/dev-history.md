@@ -13,3 +13,5 @@
 - [ ] 数据库搭建
 - [ ] 应用错误的监控与处理
 - [ ] Koa vs Express
+- [ ] 如何优雅的使用 Services
+- [x] [项目的依赖如何优雅的保存](./notes/how-to-save-node-global-variable-no-saved-in-global.md)

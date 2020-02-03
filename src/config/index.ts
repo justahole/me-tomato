@@ -23,5 +23,6 @@ export default {
   app: {
     port: process.env.APP_PORT,
     keys: process.env.APP_KEYS,
+    jwtSecret: process.env.JWT_SECRET,
   },
 };

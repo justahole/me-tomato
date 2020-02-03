@@ -12,7 +12,7 @@ async function createServer() {
 
   app.listen(
       config.app.port,
-      () => console.log('server listen successfully ~~'),
+      () => console.log('✌️ server listen successfully ~~'),
   );
 }
 

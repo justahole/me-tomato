@@ -25,20 +25,26 @@
   "homepage": "https://github.com/justahole/me-tomato#readme",
   "dependencies": {
     "@hapi/joi": "^17.0.0",
+    "argon2": "^0.25.1",
     "celebrate": "^11.0.1",
+    "crypto-js": "^3.1.9-1",
     "dotenv": "^8.2.0",
     "joi": "^14.3.1",
     "joi-router": "0.0.9",
+    "jsonwebtoken": "^8.5.1",
     "koa": "^2.11.0",
     "koa-bodyparser": "^4.2.1",
     "koa-compress": "^3.0.0",
     "koa-connect": "^2.0.1",
     "koa-router": "^7.4.0",
     "mysql2": "^2.0.2",
-    "sequelize": "^5.21.3"
+    "reflect-metadata": "^0.1.13",
+    "sequelize": "^5.21.3",
+    "typedi": "^0.8.0"
   },
   "devDependencies": {
     "@types/koa": "^2.11.0",
+    "@types/node": "^13.1.6",
     "@typescript-eslint/eslint-plugin": "^2.11.0",
     "@typescript-eslint/parser": "^2.11.0",
     "eslint": "^6.7.2",

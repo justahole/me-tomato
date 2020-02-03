@@ -15,8 +15,13 @@ export default async () => {
           acquire: config.database.pool.acquire,
           idle: config.database.pool.idle,
         },
+        define: { 
+          underscored: true
+        }
       },
   );
 
-  return sequelize.authenticate();
+  await sequelize.authenticate();
+
+  return sequelize;
 };

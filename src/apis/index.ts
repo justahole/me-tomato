@@ -1,11 +1,11 @@
-import * as Router from 'koa-router'
+import * as Router from 'koa-router';
 
-import auth from './routes/auth'
+import auth from './routes/auth';
 
 export default () => {
   const app = new Router();
 
-  auth(app)
+  auth(app);
 
-  return app.routes()
-}
+  return app.routes();
+};

@@ -3,6 +3,8 @@
 ## 目标
 
 - [ ] 多凭证登陆方式
+- [ ] 完善清晰的项目结构
+- [x] [一个较安全的登录方式](./notes/some-security-acknowledge.md)
 
 ## 采坑与学习
 
@@ -15,3 +17,6 @@
 - [ ] Koa vs Express
 - [ ] 如何优雅的使用 Services
 - [x] [项目的依赖如何优雅的保存](./notes/how-to-save-node-global-variable-no-saved-in-global.md)
+- [ ] typescript 的配置
+- [ ] Koa 的坑
+- [x] [数据库的事务管理](./notes/hello-db-transaction.md)

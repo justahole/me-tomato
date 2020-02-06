@@ -17,9 +17,10 @@ export const signUp = async (ctx, next) => {
   const userService = Container.get(UserService);
 
   try {
-    const token = await userService.signUp({ email, password });
-    ctx.body = token;
+    ctx.body = await userService.signUp({email, password});
   } catch (e) {
-    ctx.body = e.message;
+    ctx.body = {
+      message: e.message,
+    };
   }
 };

@@ -1,21 +1,32 @@
-import { Sequelize, UUID, Model, STRING, ENUM } from 'sequelize';
+import {Sequelize, Model, STRING, ENUM} from 'sequelize';
 
-export default class User extends Model {
+/**
+ * User profile Models
+ */
+class User extends Model {
+  /**
+   * defined User Model
+   *
+   * @param {Sequelize} sequelize
+   * @return {SequelizeModel}
+   */
   static injectSequelize(sequelize: Sequelize) {
     this.init({
       nick_name: {
         type: STRING,
-        unique: true
+        unique: true,
       },
       sex: {
         type: ENUM('man', 'woman', 'secrecy'),
         defaultValue: 'secrecy',
-      }
+      },
     }, {
       sequelize: sequelize,
-      modelName: 'user'
-    })
+      modelName: 'user',
+    });
 
-    return this
+    return this;
   }
 }
+
+export default User;

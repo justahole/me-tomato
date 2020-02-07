@@ -56,7 +56,7 @@ class UserService {
    * User SignIn with email and password
    */
   async signIn({email, password}) {
-    const auth = this.AuthModel.findOne({
+    const auth = await this.AuthModel.findOne({
       where: {
         auth_type: 'mail',
         auth_id: email,
@@ -68,7 +68,7 @@ class UserService {
       throw new Error('Mail or password error');
     }
 
-    const user = this.UserModel.findByPk(auth.user_id);
+    const user = await this.UserModel.findByPk(auth.user_id);
 
     return {
       user: user,

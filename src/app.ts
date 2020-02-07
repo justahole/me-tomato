@@ -3,7 +3,7 @@ import loaders from './loaders';
 import config from './config';
 
 /**
- * Search entry
+ * Service entry
  */
 async function createServer() {
   const app = new Koa();

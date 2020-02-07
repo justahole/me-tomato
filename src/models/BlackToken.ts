@@ -1,26 +1,19 @@
 import {Model, Sequelize, STRING} from 'sequelize';
 
-/**
- * User Password salt
- */
-class Salt extends Model {
-  /**
-   * @param {object} sequelize
-   * @return {object}
-   */
+class BlackToken extends Model {
   static injectSequelize(sequelize: Sequelize) {
     this.init({
-      salt: {
+      token: {
         type: STRING,
         allowNull: false,
       },
     }, {
       sequelize: sequelize,
-      modelName: 'salt',
+      modelName: 'blackToken',
     });
 
     return this;
   }
 }
 
-export default Salt;
+export default BlackToken;

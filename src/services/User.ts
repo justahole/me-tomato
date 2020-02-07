@@ -18,6 +18,7 @@ class UserService {
     @inject('UserModel') private UserModel: any,
     @inject('AuthModel') private AuthModel: any,
     @inject('SaltModel') private SaltModel: any,
+    @inject('BlackTokenModel') private BlackTokenModel: any,
     @inject('sequelize') private sequelize: Sequelize,
   ) { }
 
@@ -98,6 +99,19 @@ class UserService {
 
     if (salt) {
       return salt.salt;
+    }
+  }
+
+  /**
+   * use token black list to handel logout logic
+   * @param {string} token - token no expired
+   */
+  async logOut(token: void) {
+    const {exp} = jwt.verify(token, config.app.jwtSecret);
+    if (exp > Date.now()) {
+      await this.BlackTokenModel.findOrCreate({
+        where: {token: token},
+      });
     }
   }
 

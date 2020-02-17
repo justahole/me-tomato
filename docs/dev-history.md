@@ -10,6 +10,7 @@
 ## 采坑与学习
 
 - [ ] 如何监听 Typescript 文件的变化，有效的重启服务器
+- [ ] typescript 的配置
 - [x] [配置导入的方式](./notes/config.md)
 - [ ] Node 版本的限制
 - [ ] 多凭证登陆的数据库设计
@@ -18,6 +19,6 @@
 - [ ] Koa vs Express
 - [ ] 如何优雅的使用 Services
 - [x] [项目的依赖如何优雅的保存](./notes/how-to-save-node-global-variable-no-saved-in-global.md)
-- [ ] typescript 的配置
 - [ ] Koa 的坑
 - [x] [数据库的事务管理](./notes/hello-db-transaction.md)
+- [ ] [后端接口返回的状态码的作用](./notes/api-status-code.md)

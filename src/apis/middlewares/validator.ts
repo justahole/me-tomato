@@ -5,7 +5,7 @@
  * @return {promise | error}
  */
 export default function(rules: object) {
-  return (ctx, next) => {
+  return function paramsValidator(ctx, next) {
     const {request} = ctx;
 
     const isValid = Object.entries(rules).every(([key, validator]) => {

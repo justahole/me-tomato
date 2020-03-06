@@ -15,9 +15,9 @@ export default async () => {
           acquire: config.database.pool.acquire,
           idle: config.database.pool.idle,
         },
-        define: { 
-          underscored: true
-        }
+        define: {
+          underscored: true,
+        },
       },
   );
 

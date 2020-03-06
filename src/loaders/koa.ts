@@ -1,4 +1,4 @@
-import * as bodyParser from 'koa-bodyparser';
+import bodyParser from 'koa-bodyparser';
 
 import config from '../config';
 import createRouter from '../apis';

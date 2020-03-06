@@ -1,9 +1,8 @@
-import 'reflect-metadata';
 import {Service as service, Inject as inject} from 'typedi';
 import {Sequelize} from 'sequelize';
 import {randomBytes} from 'crypto';
-import * as jwt from 'jsonwebtoken';
-import * as argon2 from 'argon2';
+import jwt from 'jsonwebtoken';
+import argon2 from 'argon2';
 import config from '../config';
 
 /**
@@ -23,7 +22,6 @@ class UserService {
 
   /**
    * @param {string} param.email - user email
-   * @return {string}
    */
   async signUp({email, password}) {
     const salt = randomBytes(32);

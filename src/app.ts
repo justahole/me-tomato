@@ -1,4 +1,7 @@
-import * as Koa from 'koa';
+import './node-version-check';
+
+import 'reflect-metadata';
+import Koa from 'koa';
 import loaders from './loaders';
 import config from './config';
 

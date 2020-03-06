@@ -1,4 +1,4 @@
-import * as Joi from '@hapi/joi';
+import Joi from '@hapi/joi';
 import {Container} from 'typedi';
 import UserService from '../../../services/User';
 
@@ -11,12 +11,6 @@ export const validator = Joi.object({
 export const getUserSalt = async (ctx, next) => {
   const {email} = ctx.request.query;
   const userService = Container.get(UserService);
-
-  try {
-    ctx.body = {
-      salt: await userService.getSalt(email),
-    };
-  } catch (e) {
-    ctx.body = e.message;
-  }
+  const salt = await userService.getSalt(email);
+  ctx.body = {salt};
 };

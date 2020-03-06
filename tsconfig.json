@@ -1,20 +1,46 @@
 {
   "compilerOptions": {
     "outDir": "dist",
+ 
+    /**
+     * typedi depnendence    
+     */
     "emitDecoratorMetadata": true,
+
+    /**
+     * enable decorator
+     */
     "experimentalDecorators": true,
-    "target": "es2017",
-    "lib": [
-      "es2017",
-      "esnext.asynciterable"
-    ],
-    "allowSyntheticDefaultImports": true,
-    "moduleResolution": "node",
-    "module": "commonjs",
+ 
     "sourceMap": true,
-    "allowJs": true,
+    "moduleResolution": "node",
+    "removeComments": true,
+
+    "target": "ES6",
+    "module": "commonjs",
+
+    /**
+     * Emit __importStar and __importDefault helpers for runtime babel ecosystem compatibility and enable --allowSyntheticDefaultImports for typesystem compatibility.
+     */
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+
+    // "declaration": true
+
+    "extendedDiagnostics": true,
+
+    /*
+     * diagnostics 编译日志
+     */
+    "diagnostics":true,
+
+    /**
+     * 辅助工具的打包 用于 将 ES6 转为 es5 的工具包
+     */
+    "importHelpers": true,
+
+    "resolveJsonModule": true
+   
   },
-  "include": [
-    "src/**/*"
-  ],
+  "files":["src/app.ts"]
 }

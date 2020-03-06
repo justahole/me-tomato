@@ -4,8 +4,9 @@
   "description": "tomato heart",
   "scripts": {
     "test": "jest",
-    "dev": "nodemon --watch ./dist dist/app.js",
-    "src-watch": "tsc --watch"
+    "dev": "concurrently -k -p \"[{name}]\" -n \"Typescript, Node\" -c \"yellow.bold,cyan.bold\" \"npm run watch-ts\" \"npm run watch-node\"",
+    "watch-node": "nodemon --watch ./dist dist/app.js",
+    "watch-ts": "tsc --watch"
   },
   "repository": {
     "type": "git",
@@ -48,6 +49,7 @@
     "@types/node": "^13.1.6",
     "@typescript-eslint/eslint-plugin": "^2.11.0",
     "@typescript-eslint/parser": "^2.11.0",
+    "concurrently": "^5.1.0",
     "eslint": "^6.7.2",
     "eslint-config-google": "^0.14.0",
     "jest": "^24.9.0",

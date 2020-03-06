@@ -8,7 +8,7 @@
 
 ## 采坑与学习
 
-- [ ] 如何监听 Typescript 文件的变化，有效的重启服务器
+- [x] [如何监听 Typescript 文件的变化，有效的重启服务器](./notes/use-concurrently-to-run-multiprocess-in-on-terminal.md)
 - [x] typescript 的配置
 - [x] Node 版本的限制
 - [ ] 多凭证登陆的数据库设计

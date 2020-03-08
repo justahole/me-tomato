@@ -27,6 +27,7 @@ class UserService {
     const salt = randomBytes(32);
     const newUser = await this.sequelize.transaction(async (transaction) => {
       const unNamedUser = await this.UserModel.create({}, {transaction});
+
       await this.SaltModel.create({
         user_id: unNamedUser.id,
         salt: salt.toString('hex'),

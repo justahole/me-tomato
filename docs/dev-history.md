@@ -13,7 +13,8 @@
 - [x] Node 版本的限制
 - [ ] 多凭证登陆的数据库设计
 - [ ] 数据库搭建
-- [ ] 应用错误的监控与处理
+- [x] [Koa应用错误的处理](./notes/koa-error-handler.md)
+- [ ] 应用错误的监控
 - [ ] Koa vs Express
 - [ ] 如何优雅的使用 Services
 - [x] [项目的依赖如何优雅的保存](./notes/how-to-save-node-global-variable-no-saved-in-global.md)

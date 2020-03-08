@@ -1,7 +1,10 @@
 import semver from 'semver';
 import {engines} from '../package.json';
 
-const isSatisfiedVersion = semver.satisfies(process.version, engines.node);
+const requiredNodeVersion = engines.node;
+
+const isSatisfiedVersion: boolean = semver
+    .satisfies(process.version, requiredNodeVersion);
 
 if (!isSatisfiedVersion) {
   console.log(`This project require node verions: ${requiredNodeVersion}`);

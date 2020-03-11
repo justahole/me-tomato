@@ -15,5 +15,14 @@ export const validator = Joi.object({
 export const signUp = async (ctx, next) => {
   const {password, email} = ctx.request.body;
   const userService = Container.get(UserService);
-  ctx.body = await userService.signUp({email, password});
+  try {
+    ctx.body = await userService.signUp({email, password});
+  } catch (e) {
+    /**
+     * @TODO need good tips
+     */
+    ctx.throw(400, JSON.stringify(e), {
+      detail: e,
+    });
+  }
 };

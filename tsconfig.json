@@ -27,20 +27,29 @@
 
     // "declaration": true
 
-    "extendedDiagnostics": true,
+    // "extendedDiagnostics": true,
 
     /*
      * diagnostics 编译日志
      */
-    "diagnostics":true,
+    // "diagnostics":true,
 
     /**
      * 辅助工具的打包 用于 将 ES6 转为 es5 的工具包
      */
     "importHelpers": true,
 
-    "resolveJsonModule": true
-   
+    "resolveJsonModule": true,
+
+    "baseUrl": ".",
+
+    "paths": {
+      "*": [
+          "node_modules/*",
+          "src/types/*"
+        ]
+    }
+
   },
   "files":["src/app.ts"]
 }

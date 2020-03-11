@@ -1,3 +1,4 @@
+import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
 
 import config from '../config';
@@ -21,8 +22,12 @@ export default async ({koaApp}) => {
       koaApp.emit('error', err);
     }
   });
+
   koaApp.on('error',
-      (error) => console.error('server error:::::::', error));
+      (error) => {
+        console.error(`😿 request error status ${error.status} , detail =====> `,
+            JSON.stringify(error, null, ' '));
+      });
 
   koaApp.use(bodyParser());
   koaApp.use(createRouter());

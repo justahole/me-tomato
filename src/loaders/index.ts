@@ -1,16 +1,17 @@
-import sequelizeLoaders from './sequelize';
-import koaLoaders from './koa';
-import dependencyInjectLoaders from './dependency';
+import Koa from 'koa'
+import sequelizeLoaders from './sequelize'
+import koaLoaders from './koa'
+import dependencyInjectLoaders from './dependency'
 
-export default async ({koaApp}) => {
-  const sequelize = await sequelizeLoaders();
-  console.log('✌️ database loaded ~~');
+export default async ({koaApp}: {koaApp: Koa}): void => {
+  const sequelize = await sequelizeLoaders()
+  console.log('✌️ database loaded ~~')
 
   await dependencyInjectLoaders({
     sequelize,
-  });
-  console.log('✌️ dependency injected ~~');
+  })
+  console.log('✌️ dependency injected ~~')
 
-  await koaLoaders({koaApp});
-  console.log('✌️ koa loaded ~~');
-};
+  await koaLoaders({koaApp})
+  console.log('✌️ koa loaded ~~')
+}

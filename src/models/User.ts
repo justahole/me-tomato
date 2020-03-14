@@ -1,4 +1,4 @@
-import {Sequelize, Model, STRING, ENUM} from 'sequelize';
+import {Sequelize, Model, STRING, ENUM} from 'sequelize'
 
 /**
  * User profile Models
@@ -23,10 +23,10 @@ class User extends Model {
     }, {
       sequelize: sequelize,
       modelName: 'user',
-    });
+    })
 
-    return this;
+    return this
   }
 }
 
-export default User;
+export default User

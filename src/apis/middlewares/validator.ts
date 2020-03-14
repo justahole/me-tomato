@@ -6,19 +6,19 @@
  */
 export default function(rules: object) {
   return (ctx, next) => {
-    const {request} = ctx;
+    const {request} = ctx
 
     const isValid = Object.entries(rules).every(([key, validator]) => {
-      const {error} = validator.validate(request[key]);
+      const {error} = validator.validate(request[key])
       if (error) {
-        ctx.throw(400, error.message, {error: error});
-        return false;
+        ctx.throw(400, error.message, {error: error})
+        return false
       }
-      return true;
-    });
+      return true
+    })
 
     if (isValid) {
-      return next();
+      return next()
     }
-  };
+  }
 }

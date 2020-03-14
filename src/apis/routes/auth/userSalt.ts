@@ -1,22 +1,22 @@
-import Joi from '@hapi/joi';
-import {Container} from 'typedi';
-import UserService from '../../../services/User';
+import Joi from '@hapi/joi'
+import {Container} from 'typedi'
+import UserService from '../../../services/User'
 
 export const validator = Joi.object({
   email: Joi.string()
-      .required()
-      .email({minDomainSegments: 2, tlds: {allow: ['com', 'net']}}),
-});
+    .required()
+    .email({minDomainSegments: 2, tlds: {allow: ['com', 'net']}}),
+})
 
-export const getUserSalt = async (ctx, next) => {
-  const {email} = ctx.request.query;
-  const userService = Container.get(UserService);
+export const getUserSalt = async (ctx): void=> {
+  const {email} = ctx.request.query
+  const userService = Container.get(UserService)
   try {
-    const salt = await userService.getSalt(email);
-    ctx.body = {salt};
+    const salt = await userService.getSalt(email)
+    ctx.body = {salt}
   } catch (e) {
     ctx.throw(400, JSON.stringify(e), {
       detail: e,
-    });
+    })
   }
-};
+}

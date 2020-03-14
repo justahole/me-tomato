@@ -1,22 +1,22 @@
-import './node-version-check';
+import './node-version-check'
 
-import 'reflect-metadata';
-import Koa from 'koa';
-import loaders from './loaders';
-import config from './config';
+import 'reflect-metadata'
+import Koa from 'koa'
+import loaders from './loaders'
+import config from './config'
 
 /**
  * Search entry
  */
 async function createServer() {
-  const app = new Koa();
+  const app = new Koa()
 
-  await loaders({koaApp: app});
+  await loaders({koaApp: app})
 
   app.listen(
-      config.app.port,
-      () => console.log('✌️ server listen successfully ~~'),
-  );
+    config.app.port,
+    () => console.log('✌️ server listen successfully ~~'),
+  )
 }
 
-createServer();
+createServer()

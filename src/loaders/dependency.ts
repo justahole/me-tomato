@@ -1,8 +1,7 @@
 import {Container} from 'typedi'
 import modelsLoader from './models'
-import Sequelize from 'sequelize'
 
-export default async ({sequelize}: {sequelize: Sequelize}): void => {
+export default async ({sequelize}): Promise<void> => {
   Container.set('sequelize', sequelize)
 
   const connectedModels = await modelsLoader(sequelize)

@@ -12,7 +12,7 @@ export const validator = Joi.object({
   repeat_password: Joi.ref('password'),
 }).with('password', 'repeat_password')
 
-export const signUp = async (ctx): void=> {
+export const signUp = async (ctx): Promise<void> => {
   const {password, email} = ctx.request.body
   const userService = Container.get(UserService)
   try {

@@ -8,7 +8,7 @@ export const validator = Joi.object({
     .email({minDomainSegments: 2, tlds: {allow: ['com', 'net']}}),
 })
 
-export const getUserSalt = async (ctx): void=> {
+export const getUserSalt = async (ctx): Promise<void> => {
   const {email} = ctx.request.query
   const userService = Container.get(UserService)
   try {

@@ -8,14 +8,12 @@ export const validator = Joi.object({
   password: Joi.string().required(),
 })
 
-export const signIn = async (ctx): void => {
+export const signIn = async (ctx): Promise<void> => {
   const {password, email} = ctx.request.body
   const userService = Container.get(UserService)
   try {
     const token = await userService.signIn({email, password})
-    ctx.body = {
-      token
-    }
+    ctx.body = {token}
   } catch(e) {
     ctx.throw(400, e.message)
   }

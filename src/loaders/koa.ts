@@ -4,7 +4,7 @@ import bodyParser from 'koa-bodyparser'
 import config from '../config'
 import createRouter from '../apis'
 
-export default async ({koaApp}: {koaApp: Koa}): void=> {
+export default async ({koaApp}: {koaApp: Koa}): Promise<void> => {
   /**
    * config koa application
    */

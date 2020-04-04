@@ -21,10 +21,17 @@ export default class TodoService {
     return todo
   }
 
-  async getList(params) {
-    console.log(params)
-    return await this.TodoModel.findAll({
-      where: params
+  async getList({ complete, user_id, limit = 20, offset = 0 }) {
+    const res = await this.TodoModel.findAndCountAll({
+      where: {
+        complete,
+        user_id,
+      },
+      limit,
+      offset
     })
+
+    return { offset, ...res }
   }
+
 }

@@ -5,13 +5,13 @@ import config from '../config'
 export default async ({ sequelize }): Promise<void> => {
   Container.set('sequelize', sequelize)
 
-  const connectedModels = await modelsLoader(sequelize)
+  const Models = await modelsLoader(sequelize)
 
   /**
    * make sure models have connected database when get model in container;
    */
-  Object.entries(connectedModels).forEach(([modelName, model]) => {
-    Container.set(modelName, model)
+  Object.entries(Models).forEach(([ModelName, Model]) => {
+    Container.set(ModelName, Model)
   })
 
   Container.set('config', config)

@@ -14,6 +14,7 @@ todoApiRouter
   .post('/', validate({ body: createTodoValidator }), createTodo)
 
 export default (app: Router): void => {
-  const { jwtSecret } = Container.get('config').app
+  const config = Container.get('config') as any
+  const { jwtSecret } = config.app
   app.use('/todo', isAuth({ secret: jwtSecret }), todoApiRouter.routes())
 }

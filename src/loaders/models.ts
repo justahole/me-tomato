@@ -5,7 +5,7 @@ import AuthModel from '../models/Auth'
 import SaltModel from '../models/Salt'
 import TodoModel from '../models/Todo'
 
-export default async (sequelize: Sequelize): Promise<{[name: string]: object}> => {
+export default async (sequelize: Sequelize): Promise<{[name: string]: Function}> => {
 
   const models = {
     UserModel: UserModel,

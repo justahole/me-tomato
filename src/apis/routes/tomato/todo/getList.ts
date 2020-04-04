@@ -8,7 +8,7 @@ export const validator = Joi.object({
 
 export const getTodos = async (ctx): Promise<void> => {
   const { user_id } = ctx.state
-  const query = queryString.parse(ctx.request.querystring, { parseBooleans: true })
+  const query = queryString.parse(ctx.request.querystring, { parseNumbers: true, parseBooleans: true })
 
   const todoService = Container.get(TodoService)
 

@@ -1,9 +1,3 @@
-
-/**
- * @todo a rules interface
- * @param {object} rules
- * @return {promise | error}
- */
 export default function(rules: object) {
   return (ctx, next) => {
     const { request } = ctx

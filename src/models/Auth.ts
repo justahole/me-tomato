@@ -1,7 +1,7 @@
 import { Model, Sequelize, INTEGER, STRING } from 'sequelize'
 
 export default class Auth extends Model {
-  static injectSequelize(sequelize: Sequelize) {
+  static injectSequelize(sequelize: Sequelize): void {
     this.init({
       auth_type: {
         type: STRING,
@@ -25,7 +25,5 @@ export default class Auth extends Model {
       sequelize: sequelize,
       modelName: 'auth',
     })
-
-    return this
   }
 }

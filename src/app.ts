@@ -11,7 +11,7 @@ import config from './config'
 async function createServer() {
   const app = new Koa()
 
-  await loaders({koaApp: app})
+  await loaders({ koaApp: app })
 
   app.listen(
     config.app.port,

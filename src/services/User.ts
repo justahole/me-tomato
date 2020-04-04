@@ -1,6 +1,6 @@
-import {Service as service, Inject as inject} from 'typedi'
-import {Sequelize} from 'sequelize'
-import {randomBytes} from 'crypto'
+import { Service as service, Inject as inject } from 'typedi'
+import { Sequelize } from 'sequelize'
+import { randomBytes } from 'crypto'
 import jwt from 'jsonwebtoken'
 import argon2 from 'argon2'
 import config from '../config'
@@ -23,24 +23,24 @@ class UserService {
   /**
    * @param {string} param.email - user email
    */
-  async signUp({email, password}) {
+  async signUp({ email, password }) {
     const salt = randomBytes(32)
     const newUser = await this.sequelize.transaction(async (transaction) => {
-      const unNamedUser = await this.UserModel.create({}, {transaction})
+      const unNamedUser = await this.UserModel.create({}, { transaction })
 
       await this.SaltModel.create({
         user_id: unNamedUser.id,
         salt: salt.toString('hex'),
-      }, {transaction})
+      }, { transaction })
 
-      const hashedPassword = await argon2.hash(password, {salt})
+      const hashedPassword = await argon2.hash(password, { salt })
 
       await this.AuthModel.create({
         user_id: unNamedUser.id,
         auth_type: 'mail',
         auth_id: email,
         auth_access_token: hashedPassword,
-      }, {transaction})
+      }, { transaction })
 
       return unNamedUser
     })
@@ -54,7 +54,7 @@ class UserService {
   /**
    * User SignIn with email and password
    */
-  async signIn({email, password}) {
+  async signIn({ email, password }) {
     const auth = await this.AuthModel.findOne({
       where: {
         auth_type: 'mail',
@@ -92,7 +92,7 @@ class UserService {
     }
 
     const salt = await this.SaltModel.findOne({
-      where: {user_id: auth.user_id},
+      where: { user_id: auth.user_id },
     })
 
     if (salt) {
@@ -105,7 +105,10 @@ class UserService {
    * @return {string} token
    */
   generateToken(user) {
-    const exp = Date.now() + 1000 * 60 * 60 * 24
+    /**
+     * exp is one day
+     */
+    const exp = Math.floor(Date.now() / 1000) + 60 * 60 * 24
 
     return jwt.sign(
       {

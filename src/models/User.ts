@@ -1,16 +1,7 @@
-import {Sequelize, Model, STRING, ENUM} from 'sequelize'
+import { Sequelize, Model, STRING, ENUM } from 'sequelize'
 
-/**
- * User profile Models
- */
 class User extends Model {
-  /**
-   * defined User Model
-   *
-   * @param {Sequelize} sequelize
-   * @return {SequelizeModel}
-   */
-  static injectSequelize(sequelize: Sequelize) {
+  static injectSequelize(sequelize: Sequelize): void {
     this.init({
       nick_name: {
         type: STRING,
@@ -24,8 +15,6 @@ class User extends Model {
       sequelize: sequelize,
       modelName: 'user',
     })
-
-    return this
   }
 }
 

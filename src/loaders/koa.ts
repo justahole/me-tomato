@@ -4,7 +4,7 @@ import bodyParser from 'koa-bodyparser'
 import config from '../config'
 import createRouter from '../apis'
 
-export default async ({koaApp}: {koaApp: Koa}): Promise<void> => {
+export default async ({ koaApp }: {koaApp: Koa}): Promise<void> => {
   /**
    * config koa application
    */
@@ -14,7 +14,7 @@ export default async ({koaApp}: {koaApp: Koa}): Promise<void> => {
     try {
       await next()
     } catch (err) {
-      const {status, statusCode} = err
+      const { status, statusCode } = err
       ctx.status = statusCode || status
       ctx.body = {
         message: err.message,

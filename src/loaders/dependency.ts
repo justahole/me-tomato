@@ -1,7 +1,8 @@
-import {Container} from 'typedi'
+import { Container } from 'typedi'
 import modelsLoader from './models'
+import config from '../config'
 
-export default async ({sequelize}): Promise<void> => {
+export default async ({ sequelize }): Promise<void> => {
   Container.set('sequelize', sequelize)
 
   const connectedModels = await modelsLoader(sequelize)
@@ -12,4 +13,6 @@ export default async ({sequelize}): Promise<void> => {
   Object.entries(connectedModels).forEach(([modelName, model]) => {
     Container.set(modelName, model)
   })
+
+  Container.set('config', config)
 }

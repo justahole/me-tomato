@@ -1,7 +1,7 @@
 import { Model, Sequelize, STRING } from 'sequelize'
 
 export default class Salt extends Model {
-  static injectSequelize(sequelize: Sequelize) {
+  static injectSequelize(sequelize: Sequelize): void {
     this.init({
       salt: {
         type: STRING,
@@ -11,7 +11,5 @@ export default class Salt extends Model {
       sequelize: sequelize,
       modelName: 'salt'
     })
-
-    return this
   }
 }

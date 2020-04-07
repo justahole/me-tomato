@@ -4,11 +4,15 @@ import TodoService from '../../../../services/Todo'
 
 export const validator = Joi.object({
   name: Joi.string().required(),
+  pin: Joi.boolean()
 })
 
-export const createTodo = async (ctx): Promise<void> => {
-  const { name } = ctx.request.body
-  const { user_id } = ctx.state
+export default async (ctx): Promise<void> => {
   const todoService = Container.get(TodoService)
-  ctx.body = await todoService.create({ user_id, name })
+  await todoService.delete({ id: ctx.params.id, user_id: ctx.state.user_id })
+
+  ctx.body = {
+    code: 0,
+    message: 'successfully'
+  }
 }

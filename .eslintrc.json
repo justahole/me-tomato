@@ -37,12 +37,13 @@
             "error",
             "never"
         ],
-        // "no-unused-vars": ["error", { "args": "after-used" }],
         "object-curly-spacing": ["error", "always"],
         "block-spacing": ["error", "always"],
         "require-atomic-updates": "off",
         "@typescript-eslint/camelcase": "off",
         "@typescript-eslint/no-unused-vars": ["error"],
+        "max-len": ["error", { "code": 80 }],
+        "eol-last": ["error", "always"],
         "@typescript-eslint/explicit-function-return-type": "off"
     }
 }

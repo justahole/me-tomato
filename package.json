@@ -38,6 +38,7 @@
     "koa-compress": "^3.0.0",
     "koa-connect": "^2.0.1",
     "koa-router": "^7.4.0",
+    "lodash": "^4.17.15",
     "mysql2": "^2.0.2",
     "parse-bearer-token": "^1.0.1",
     "query-string": "^6.11.1",

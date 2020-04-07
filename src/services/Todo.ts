@@ -25,12 +25,21 @@ export default class TodoService {
 
   async getList({ limit = 20, offset = 0, ...params }) {
 
-    const filter = pick(params, ['pin', 'user_id', 'complete'])
+    const filter = pick(params, 
+      ['pin', 'user_id', 'complete']
+    )
+    const {
+      sortBy = 'pin',
+      reverse
+    } = pick(params, ['sortBy', 'reverse'])
+
+    const dereaction = reverse ? 'ASC' : 'DESC'
 
     const res = await this.TodoModel.findAndCountAll({
       where: filter,
       limit,
-      offset
+      offset,
+      order: [[sortBy, dereaction]]
     })
 
     return { offset, ...res }
@@ -48,7 +57,7 @@ export default class TodoService {
 
   }
 
-  async edit({ user_id, id, ...params}) {
+  async edit({ user_id, id, ...params }) {
     const newFields = pick(params, ['name', 'pin', 'complete'])
     
     const wanneComplete = newFields.complete

@@ -7,6 +7,8 @@ export const validator = Joi.object({
   offset: Joi.number(),
   complete: Joi.boolean(),
   pin: Joi.boolean(),
+  sortBy: Joi.string(),
+  reverse: Joi.boolean(),
 })
 
 export const getTodos = async (ctx): Promise<void> => {

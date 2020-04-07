@@ -18,7 +18,7 @@ todoApiRouter
   .delete('/:id', deleteTodo)
   .patch('/:id', editTodo)
   .get('/',
-    querystringparse({ parseNumbers: true, parseBooleans: true }),
+    querystringparse({ parseNumbers: true, parseBooleans: true, arrayFormat: 'comma' }),
     validate({ 'state.query': getTodosValidator }), 
     getTodos
   )

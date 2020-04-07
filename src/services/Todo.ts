@@ -1,5 +1,5 @@
 import { Service as service, Inject as inject } from 'typedi'
-import { Sequelize } from 'sequelize'
+import { Sequelize, Op } from 'sequelize'
 import { pick } from 'lodash'
 
 /**
@@ -28,22 +28,34 @@ export default class TodoService {
     const filter = pick(params, 
       ['pin', 'user_id', 'complete']
     )
+
     const {
       sortBy = 'pin',
-      reverse
-    } = pick(params, ['sortBy', 'reverse'])
+      reverse,
+      orderlist
+    } = pick(params, ['sortBy', 'reverse', 'orderlist'])
 
     const dereaction = reverse ? 'ASC' : 'DESC'
+
+    if (orderlist) {
+      filter.id = {[Op.in]: orderlist}
+    }
 
     const res = await this.TodoModel.findAndCountAll({
       where: filter,
       limit,
       offset,
-      order: [[sortBy, dereaction]]
+      order: [
+        [sortBy, dereaction],
+        orderlist ? 
+          Sequelize.fn.apply(Sequelize, 
+            ['FIELD', Sequelize.col('id'), ...orderlist]) 
+          : undefined
+      ]
     })
 
     return { offset, ...res }
-    
+
   }
 
   async delete({ user_id, id }) {

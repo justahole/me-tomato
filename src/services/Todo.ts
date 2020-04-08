@@ -25,15 +25,12 @@ export default class TodoService {
 
   async getList({ limit = 20, offset = 0, ...params }) {
 
-    const filter = pick(params, 
-      ['pin', 'user_id', 'complete']
-    )
-
     const {
       sortBy = 'pin',
       reverse,
-      orderlist
-    } = pick(params, ['sortBy', 'reverse', 'orderlist'])
+      orderlist,
+      ...filter
+    } = pick(params, ['sortBy', 'reverse', 'orderlist', 'pin', 'user_id', 'complete'])
 
     const dereaction = reverse ? 'ASC' : 'DESC'
 
@@ -41,13 +38,15 @@ export default class TodoService {
       filter.id = {[Op.in]: orderlist}
     }
 
+    user_id
+
     const res = await this.TodoModel.findAndCountAll({
       where: filter,
       limit,
       offset,
       order: [
         [sortBy, dereaction],
-        orderlist ? 
+        orderlist ?
           Sequelize.fn.apply(Sequelize, 
             ['FIELD', Sequelize.col('id'), ...orderlist]) 
           : undefined

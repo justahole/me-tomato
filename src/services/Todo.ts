@@ -38,8 +38,6 @@ export default class TodoService {
       filter.id = {[Op.in]: orderlist}
     }
 
-    user_id
-
     const res = await this.TodoModel.findAndCountAll({
       where: filter,
       limit,

@@ -22,7 +22,7 @@ todoApiRouter
     validate({ 'state.query': getTodosValidator }), 
     getTodos
   )
-  
+
 export default (app: Router): void => {
   const config = Container.get('config') as any
   const jwtSecret  = get(config, 'app.jwtSecret', '')

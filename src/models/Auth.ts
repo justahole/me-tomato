@@ -3,6 +3,11 @@ import { Model, Sequelize, INTEGER, STRING } from 'sequelize'
 export default class Auth extends Model {
   static injectSequelize(sequelize: Sequelize): void {
     this.init({
+      id: {
+        type: Sequelize.UUID,
+        primaryKey: true,
+        defaultValue: Sequelize.UUIDV4,
+      },
       auth_type: {
         type: STRING,
         allowNull: false,

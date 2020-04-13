@@ -3,6 +3,11 @@ import { Sequelize, Model, STRING, BOOLEAN, DATE } from 'sequelize'
 export default class Todo extends Model {
   static injectSequelize(sequelize: Sequelize): void {
     this.init({
+      id: {
+        type: Sequelize.UUID,
+        primaryKey: true,
+        defaultValue: Sequelize.UUIDV4,
+      },
       name: {
         type: STRING,
       },

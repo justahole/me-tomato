@@ -3,6 +3,11 @@ import { Sequelize, Model, STRING, ENUM } from 'sequelize'
 class User extends Model {
   static injectSequelize(sequelize: Sequelize): void {
     this.init({
+      id: {
+        type: Sequelize.UUID,
+        primaryKey: true,
+        defaultValue: Sequelize.UUIDV4,
+      },
       nick_name: {
         type: STRING,
         unique: true,

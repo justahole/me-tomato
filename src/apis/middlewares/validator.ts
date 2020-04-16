@@ -1,4 +1,4 @@
-export default function(rules: object) {
+export default function (rules: object) {
   return (ctx, next) => {
     const { request } = ctx
 

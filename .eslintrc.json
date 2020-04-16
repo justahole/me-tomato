@@ -6,7 +6,8 @@
     "extends": [
         "eslint:recommended",
         "plugin:@typescript-eslint/eslint-recommended",
-        "plugin:@typescript-eslint/recommended"
+        "plugin:@typescript-eslint/recommended",
+        "plugin:prettier/recommended"
     ],
     "globals": {
         "Atomics": "readonly",
@@ -41,9 +42,10 @@
         "block-spacing": ["error", "always"],
         "require-atomic-updates": "off",
         "@typescript-eslint/camelcase": "off",
+        "indent": "off",
         "@typescript-eslint/no-unused-vars": ["error"],
-        "no-unused-vars": ['error'],
-        "no-use-before-define": ['error'],
+        "no-unused-vars": ["error"],
+        "no-use-before-define": ["error"],
         "no-undef": ["error"],
         "max-len": ["error", { "code": 80, "tabWidth": 2 }],
         "eol-last": ["error", "always"],

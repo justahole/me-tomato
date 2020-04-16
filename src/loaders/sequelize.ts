@@ -3,7 +3,7 @@ import config from '../config'
 
 export default async (): Promise<Sequelize> => {
   const DIALECT = 'mysql'
-  
+
   const sequelize = new Sequelize(
     config.database.name,
     config.database.user,
@@ -24,11 +24,11 @@ export default async (): Promise<Sequelize> => {
       define: {
         underscored: true,
       },
-    },
+    }
   )
-  
+
   /**
-   * test connect 
+   * test connect
    */
   await sequelize.authenticate()
 

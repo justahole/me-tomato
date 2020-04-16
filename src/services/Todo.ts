@@ -9,33 +9,32 @@ import { pick } from 'lodash'
 export default class TodoService {
   constructor(
     @inject('TodoModel') private TodoModel: any,
-    @inject('sequelize') private sequelize: Sequelize,
-  ) { }
+    @inject('sequelize') private sequelize: Sequelize
+  ) {}
 
   async create({ user_id, name }) {
-
     const todo = await this.TodoModel.create({
       user_id,
-      name
+      name,
     })
 
     return todo
-
   }
 
   async getList({ limit = 20, offset = 0, ...params }) {
-
-    const {
-      sortBy = 'pin',
-      reverse,
-      orderlist,
-      ...filter
-    } = pick(params, ['sortBy', 'reverse', 'orderlist', 'pin', 'user_id', 'complete'])
+    const { sortBy = 'pin', reverse, orderlist, ...filter } = pick(params, [
+      'sortBy',
+      'reverse',
+      'orderlist',
+      'pin',
+      'user_id',
+      'complete',
+    ])
 
     const dereaction = reverse ? 'ASC' : 'DESC'
 
     if (orderlist) {
-      filter.id = {[Op.in]: orderlist}
+      filter.id = { [Op.in]: orderlist }
     }
 
     const res = await this.TodoModel.findAndCountAll({
@@ -44,45 +43,44 @@ export default class TodoService {
       offset,
       order: [
         [sortBy, dereaction],
-        orderlist ?
-          Sequelize.fn.apply(Sequelize, 
-            ['FIELD', Sequelize.col('id'), ...orderlist]) 
-          : undefined
-      ]
+        orderlist
+          ? Sequelize.fn.apply(Sequelize, [
+              'FIELD',
+              Sequelize.col('id'),
+              ...orderlist,
+            ])
+          : undefined,
+      ],
     })
 
     return { offset, ...res }
-
   }
 
   async delete({ user_id, id }) {
-    
     return await this.TodoModel.destroy({
       where: {
         user_id: user_id,
-        id: id
-      }
+        id: id,
+      },
     })
-
   }
 
   async edit({ user_id, id, ...params }) {
     const newFields = pick(params, ['name', 'pin', 'complete'])
-    
+
     const wanneComplete = newFields.complete
 
     return await this.TodoModel.update(
       {
         ...newFields,
-        completed_at: wanneComplete ? new Date() : undefined
+        completed_at: wanneComplete ? new Date() : undefined,
       },
       {
-        where: { 
+        where: {
           user_id: user_id,
-          id: id
-        }
+          id: id,
+        },
       }
     )
-    
   }
 }

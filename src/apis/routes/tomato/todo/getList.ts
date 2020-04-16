@@ -19,7 +19,7 @@ export const getTodos = async (ctx): Promise<void> => {
 
   const params = {
     user_id: user_id,
-    ...query
+    ...query,
   }
 
   ctx.body = await todoService.getList(params)

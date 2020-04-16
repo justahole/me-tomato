@@ -4,7 +4,7 @@ import bodyParser from 'koa-bodyparser'
 import config from '../config'
 import createRouter from '../apis'
 
-export default async ({ koaApp }: {koaApp: Koa}): Promise<void> => {
+export default async ({ koaApp }: { koaApp: Koa }): Promise<void> => {
   /**
    * config koa application
    */
@@ -32,11 +32,12 @@ export default async ({ koaApp }: {koaApp: Koa}): Promise<void> => {
     }
   })
 
-  koaApp.on('error',
-    (error) => {
-      console.error(`😿 request error status ${error.status} , detail =====> `,
-        error)
-    })
+  koaApp.on('error', (error) => {
+    console.error(
+      `😿 request error status ${error.status} , detail =====> `,
+      error
+    )
+  })
 
   koaApp.use(bodyParser())
   koaApp.use(createRouter())

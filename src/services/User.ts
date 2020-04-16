@@ -17,8 +17,8 @@ class UserService {
     @inject('UserModel') private UserModel: any,
     @inject('AuthModel') private AuthModel: any,
     @inject('SaltModel') private SaltModel: any,
-    @inject('sequelize') private sequelize: Sequelize,
-  ) { }
+    @inject('sequelize') private sequelize: Sequelize
+  ) {}
 
   /**
    * @param {string} param.email - user email
@@ -28,19 +28,25 @@ class UserService {
     const newUser = await this.sequelize.transaction(async (transaction) => {
       const unNamedUser = await this.UserModel.create({}, { transaction })
 
-      await this.SaltModel.create({
-        user_id: unNamedUser.id,
-        salt: salt.toString('hex'),
-      }, { transaction })
+      await this.SaltModel.create(
+        {
+          user_id: unNamedUser.id,
+          salt: salt.toString('hex'),
+        },
+        { transaction }
+      )
 
       const hashedPassword = await argon2.hash(password, { salt })
 
-      await this.AuthModel.create({
-        user_id: unNamedUser.id,
-        auth_type: 'mail',
-        auth_id: email,
-        auth_access_token: hashedPassword,
-      }, { transaction })
+      await this.AuthModel.create(
+        {
+          user_id: unNamedUser.id,
+          auth_type: 'mail',
+          auth_id: email,
+          auth_access_token: hashedPassword,
+        },
+        { transaction }
+      )
 
       return unNamedUser
     })
@@ -116,7 +122,7 @@ class UserService {
         name: user.name,
         exp: exp,
       },
-      config.app.jwtSecret,
+      config.app.jwtSecret
     )
   }
 }

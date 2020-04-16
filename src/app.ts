@@ -13,9 +13,8 @@ async function createServer() {
 
   await loaders({ koaApp: app })
 
-  app.listen(
-    config.app.port,
-    () => console.log('✌️ server listen successfully ~~'),
+  app.listen(config.app.port, () =>
+    console.log('✌️ server listen successfully ~~')
   )
 }
 

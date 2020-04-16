@@ -17,14 +17,19 @@ todoApiRouter
   .post('/', validate({ body: createTodoValidator }), createTodo)
   .delete('/:id', deleteTodo)
   .patch('/:id', editTodo)
-  .get('/',
-    querystringparse({ parseNumbers: true, parseBooleans: true, arrayFormat: 'comma' }),
-    validate({ 'state.query': getTodosValidator }), 
+  .get(
+    '/',
+    querystringparse({
+      parseNumbers: true,
+      parseBooleans: true,
+      arrayFormat: 'comma',
+    }),
+    validate({ 'state.query': getTodosValidator }),
     getTodos
   )
 
 export default (app: Router): void => {
   const config = Container.get('config') as any
-  const jwtSecret  = get(config, 'app.jwtSecret', '')
+  const jwtSecret = get(config, 'app.jwtSecret', '')
   app.use('/todo', isAuth({ secret: jwtSecret }), todoApiRouter.routes())
 }

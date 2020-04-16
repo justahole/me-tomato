@@ -15,7 +15,10 @@
 - [x] [项目的依赖如何优雅的保存](./notes/how-to-save-node-global-variable-no-saved-in-global.md)
 - [x] [配置导入的方式](./notes/config.md)
 - [x] [数据库的事务管理](./notes/hello-db-transaction.md)
+- [x] 数据库搭建
+- [x] pritties
+- [x] module alias
 - [ ] 多凭证登陆的数据库设计
-- [ ] 数据库搭建
 - [ ] 日志的导出
 - [ ] 接口错误的处理
+- [ ] git commit 格式

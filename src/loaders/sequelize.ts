@@ -1,8 +1,9 @@
 import { Sequelize } from 'sequelize'
-import config from '../config'
+import { Container } from 'typedi'
 
 export default async (): Promise<Sequelize> => {
   const DIALECT = 'mysql'
+  const config = Container.get('config')
 
   const sequelize = new Sequelize(
     config.database.name,

@@ -1,13 +1,14 @@
 import Koa from 'koa'
 import bodyParser from 'koa-bodyparser'
+import { Container } from 'typedi'
 
-import config from '../config'
 import createRouter from '../apis'
 
 export default async ({ koaApp }: { koaApp: Koa }): Promise<void> => {
   /**
    * config koa application
    */
+  const config = Container.get('config')
   koaApp.keys = config.app.keys
 
   koaApp.use(async (ctx, next) => {

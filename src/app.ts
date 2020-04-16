@@ -3,8 +3,11 @@ import './node-version-check'
 import 'module-alias/register'
 import 'reflect-metadata'
 import Koa from 'koa'
+import { Container } from 'typedi'
 import loaders from './loaders'
 import config from './config'
+
+Container.set('config', config)
 
 /**
  * Search entry

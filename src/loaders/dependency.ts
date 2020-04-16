@@ -1,6 +1,5 @@
 import { Container } from 'typedi'
 import modelsLoader from './models'
-import config from '../config'
 
 export default async ({ sequelize }): Promise<void> => {
   Container.set('sequelize', sequelize)
@@ -13,6 +12,4 @@ export default async ({ sequelize }): Promise<void> => {
   Object.entries(Models).forEach(([ModelName, Model]) => {
     Container.set(ModelName, Model)
   })
-
-  Container.set('config', config)
 }

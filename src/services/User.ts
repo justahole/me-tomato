@@ -1,22 +1,18 @@
-import { Service as service, Inject as inject } from 'typedi'
+import { Service as service, Inject as inject, Container } from 'typedi'
 import { Sequelize } from 'sequelize'
 import { randomBytes } from 'crypto'
 import jwt from 'jsonwebtoken'
 import argon2 from 'argon2'
-import config from '../config'
 
 /**
  * All user logic service
  */
 @service()
 class UserService {
-  /**
-   * @TODO find a way to import UserModel interface
-   */
   constructor(
-    @inject('UserModel') private UserModel: any,
-    @inject('AuthModel') private AuthModel: any,
-    @inject('SaltModel') private SaltModel: any,
+    @inject('UserModel') private UserModel,
+    @inject('AuthModel') private AuthModel,
+    @inject('SaltModel') private SaltModel,
     @inject('sequelize') private sequelize: Sequelize
   ) {}
 
@@ -122,7 +118,7 @@ class UserService {
         name: user.name,
         exp: exp,
       },
-      config.app.jwtSecret
+      Container.get('config')
     )
   }
 }

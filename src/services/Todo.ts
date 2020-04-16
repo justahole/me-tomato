@@ -8,7 +8,7 @@ import { pick } from 'lodash'
 @service()
 export default class TodoService {
   constructor(
-    @inject('TodoModel') private TodoModel: any,
+    @inject('TodoModel') private TodoModel,
     @inject('sequelize') private sequelize: Sequelize
   ) {}
 

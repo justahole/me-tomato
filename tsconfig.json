@@ -44,6 +44,9 @@
     "baseUrl": ".",
 
     "paths": {
+      "@middlewares/*": ["./src/middlewares/*"],
+      "@services/*": ["./src/services/*"],
+      "@models/*": ["./src/models/*"],
       "*": [
           "node_modules/*",
           "src/types/*"

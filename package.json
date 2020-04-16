@@ -39,6 +39,7 @@
     "koa-connect": "^2.0.1",
     "koa-router": "^7.4.0",
     "lodash": "^4.17.15",
+    "module-alias": "^2.2.2",
     "mysql2": "^2.0.2",
     "parse-bearer-token": "^1.0.1",
     "query-string": "^6.11.1",
@@ -64,5 +65,10 @@
   },
   "engines": {
     "node": ">=12.0.0"
+  },
+  "_moduleAliases": {
+    "@models": "dist/src/models",
+    "@services": "dist/src/services",
+    "@middlewares": "dist/src/middlewares"
   }
 }

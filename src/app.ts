@@ -1,5 +1,6 @@
 import './node-version-check'
 
+import 'module-alias/register'
 import 'reflect-metadata'
 import Koa from 'koa'
 import loaders from './loaders'

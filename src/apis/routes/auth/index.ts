@@ -1,6 +1,6 @@
 import Router from 'koa-router'
 
-import validate from '../../middlewares/validator'
+import validate from '@middlewares/validator'
 
 import { signUp, validator as SignUpValidator } from './signUp'
 import { signIn, validator as SignInValidator } from './signIn'

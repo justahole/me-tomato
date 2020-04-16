@@ -1,6 +1,6 @@
 import Joi from '@hapi/joi'
 import { Container } from 'typedi'
-import TodoService from '../../../../services/Todo'
+import TodoService from '@services/Todo'
 
 export const validator = Joi.object({
   name: Joi.string().required(),

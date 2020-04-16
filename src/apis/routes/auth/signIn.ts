@@ -1,6 +1,6 @@
 import Joi from '@hapi/joi'
 import { Container } from 'typedi'
-import UserService from '../../../services/User'
+import UserService from '@services/User'
 
 export const validator = Joi.object({
   email: Joi.string()

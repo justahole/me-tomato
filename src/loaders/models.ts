@@ -1,11 +1,11 @@
 import { Sequelize } from 'sequelize'
 
-import UserModel from '../models/User'
-import AuthModel from '../models/Auth'
-import SaltModel from '../models/Salt'
-import TodoModel from '../models/Todo'
-import UserUsnModel from '../models/UserUsn'
-import TodoUsnModel from '../models/TodoUsn'
+import UserModel from '@models/User'
+import AuthModel from '@models/Auth'
+import SaltModel from '@models/Salt'
+import TodoModel from '@models/Todo'
+import UserUsnModel from '@models/UserUsn'
+import TodoUsnModel from '@models/TodoUsn'
 
 export default async (
   sequelize: Sequelize

@@ -2,9 +2,9 @@ import Router from 'koa-router'
 import { Container } from 'typedi'
 import { get } from 'lodash'
 
-import validate from '../../middlewares/validator'
-import isAuth from '../../middlewares/isAuth'
-import querystringparse from '../../middlewares/querystringparse'
+import validate from '@middlewares/validator'
+import isAuth from '@middlewares/isAuth'
+import querystringparse from '@middlewares/querystringparse'
 
 import { createTodo, validator as createTodoValidator } from './todo/create'
 import { getTodos, validator as getTodosValidator } from './todo/getList'

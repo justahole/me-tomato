@@ -1,11 +1,13 @@
 import { Service, Inject } from 'typedi'
+import { Sequelize } from 'sequelize'
 
 @Service()
 export default class AsyncService {
   constructor(
     @Inject('UserUsnModel') private UserUsnModel,
     @Inject('TodoModel') private TodoModel,
-    @Inject('TodoUsnModel') private TodoUsnModel
+    @Inject('TodoUsnModel') private TodoUsnModel,
+    @Inject('sequelize') private sequelize: Sequelize
   ) {}
 
   async getUserUsn({ user_id }) {
@@ -16,55 +18,49 @@ export default class AsyncService {
     })
   }
 
-  async createTodo({ user_id, name }) {
-    await this.sequelize.transaction(async (transaction) => {
-      const todo = await this.TodoModel.create({
-        user_id,
-        name,
+  async createTodo({
+    user_id,
+    name,
+  }): Promise<{ usn: number; message: string }> {
+    const usn = await this.sequelize.transaction(async (transaction) => {
+      console.log('user_id', user_id, name)
+      const { id: todoID } = await this.TodoModel.create(
+        {
+          user_id,
+          name,
+        },
+        { transaction }
+      )
+
+      const { usn, usn_id } = await this.UserUsnModel.findOne({
+        where: { user_id },
       })
 
-      return todo
+      /** @TODO make sure usn is the same */
+      await this.UserUsnModel.update(
+        {
+          usn: usn + 1,
+        },
+        { where: { user_id, usn }, transaction }
+      )
+
+      await this.TodoUsnModel.create(
+        {
+          usn: usn + 1,
+          resource_id: todoID,
+          user_usn_id: usn_id,
+        },
+        {
+          transaction,
+        }
+      )
+
+      return usn
     })
+
+    return {
+      message: 'successfully',
+      usn,
+    }
   }
-
-  // async signUp({ email, password }) {
-  //   const salt = randomBytes(32)
-  //   const newUser = await this.sequelize.transaction(async (transaction) => {
-  //     const user = await this.UserModel.create({}, { transaction })
-
-  //     await this.SaltModel.create(
-  //       {
-  //         user_id: user.id,
-  //         salt: salt.toString('hex'),
-  //       },
-  //       { transaction }
-  //     )
-
-  //     await this.UserUsnModel.create(
-  //       { user_id: user.id, usn: 0 },
-  //       { transaction }
-  //     )
-
-  //     const hashedPassword = await argon2.hash(password, { salt })
-
-  //     await this.AuthModel.create(
-  //       {
-  //         user_id: user.id,
-  //         auth_type: 'mail',
-  //         auth_id: email,
-  //         auth_access_token: hashedPassword,
-  //       },
-  //       { transaction }
-  //     )
-
-  //     return user
-  //   })
-  // async create({ user_id, name }) {
-  //   const todo = await this.TodoModel.create({
-  //     user_id,
-  //     name,
-  //   })
-
-  //   return todo
-  // }
 }

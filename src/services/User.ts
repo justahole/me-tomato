@@ -19,9 +19,6 @@ class UserService {
     @inject('config') private config: Config
   ) {}
 
-  /**
-   * @param {string} param.email - user email
-   */
   async signUp({ email, password }) {
     const salt = randomBytes(32)
     const newUser = await this.sequelize.transaction(async (transaction) => {
@@ -85,11 +82,7 @@ class UserService {
     }
   }
 
-  /**
-   * @param {string} email
-   * @return {string}
-   */
-  async getSalt(email) {
+  async getSalt(email: string) {
     const auth = await this.AuthModel.findOne({
       where: {
         auth_type: 'mail',
@@ -110,11 +103,7 @@ class UserService {
     }
   }
 
-  /**
-   * @param {object} user - user model instance
-   * @return {string} token
-   */
-  generateToken(user) {
+  generateToken(user: { id: string; name: string }) {
     /**
      * exp is one day
      */

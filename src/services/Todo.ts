@@ -50,7 +50,7 @@ export default class TodoService {
               ...orderlist,
             ])
           : undefined,
-      ],
+      ].filter((orderRule) => orderRule),
     })
 
     return { offset, ...res }

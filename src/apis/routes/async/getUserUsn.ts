@@ -1,7 +1,8 @@
-import UserService from '@services/User'
+import { Container } from 'typedi'
+import AsyncService from '@services/Async'
 
 export default async (ctx): Promise<void> => {
-  ctx.body = {
-    usn: 0,
-  }
+  const { user_id } = ctx.state
+
+  ctx.body = await Container.get(AsyncService).getUserUsn({ user_id: user_id })
 }

@@ -1,9 +1,6 @@
 import Router from 'koa-router'
-import { Container } from 'typedi'
-import { get } from 'lodash'
 
 import validate from '@middlewares/validator'
-import isAuth from '@middlewares/isAuth'
 import querystringparse from '@middlewares/querystringparse'
 
 import { createTodo, validator as createTodoValidator } from './todo/create'
@@ -28,8 +25,4 @@ todoApiRouter
     getTodos
   )
 
-export default (app: Router): void => {
-  const config = Container.get('config') as any
-  const jwtSecret = get(config, 'app.jwtSecret', '')
-  app.use('/todo', isAuth({ secret: jwtSecret }), todoApiRouter.routes())
-}
+export default todoApiRouter

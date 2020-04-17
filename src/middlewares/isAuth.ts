@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
 import parseBearerToken from 'parse-bearer-token'
 
-export default function ({ secret }) {
+export default function ({ secret }: { secret: string }) {
   return async (ctx, next) => {
     const token = parseBearerToken(ctx.request)
     if (!token) {

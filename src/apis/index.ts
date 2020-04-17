@@ -1,15 +1,26 @@
 import Router from 'koa-router'
+import isAuth from '@middlewares/isAuth'
+import { Container } from 'typedi'
+import { get } from 'lodash'
+import { Config } from '@root/interfaces/config'
 
-import auth from './routes/auth'
-import tomato from './routes/tomato'
-// import async from './routes/async'
+import authRouter from './routes/auth'
+import tomatoRouter from './routes/tomato'
+import asyncRouter from './routes/async'
 
 export default () => {
+  const secret = get(Container.get<Config>('config'), 'app.jwtSecret')
+  const authChecker = isAuth({
+    secret: secret,
+  })
+
   const router = new Router()
 
-  auth(router)
-  tomato(router)
-  // async(router)
+  router.use(authRouter.routes())
+
+  router.use('/todo', authChecker, tomatoRouter.routes())
+
+  router.use('/async', authChecker, asyncRouter.routes())
 
   return router.routes()
 }

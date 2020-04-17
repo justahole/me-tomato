@@ -14,6 +14,7 @@ class UserService {
     @inject('UserModel') private UserModel,
     @inject('AuthModel') private AuthModel,
     @inject('SaltModel') private SaltModel,
+    @inject('UserUsnModel') private UserUsnModel,
     @inject('sequelize') private sequelize: Sequelize,
     @inject('config') private config: Config
   ) {}
@@ -24,13 +25,18 @@ class UserService {
   async signUp({ email, password }) {
     const salt = randomBytes(32)
     const newUser = await this.sequelize.transaction(async (transaction) => {
-      const unNamedUser = await this.UserModel.create({}, { transaction })
+      const user = await this.UserModel.create({}, { transaction })
 
       await this.SaltModel.create(
         {
-          user_id: unNamedUser.id,
+          user_id: user.id,
           salt: salt.toString('hex'),
         },
+        { transaction }
+      )
+
+      await this.UserUsnModel.create(
+        { user_id: user.id, usn: 0 },
         { transaction }
       )
 
@@ -38,7 +44,7 @@ class UserService {
 
       await this.AuthModel.create(
         {
-          user_id: unNamedUser.id,
+          user_id: user.id,
           auth_type: 'mail',
           auth_id: email,
           auth_access_token: hashedPassword,
@@ -46,7 +52,7 @@ class UserService {
         { transaction }
       )
 
-      return unNamedUser
+      return user
     })
 
     return {

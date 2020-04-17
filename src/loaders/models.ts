@@ -27,7 +27,7 @@ export default async (
   UserModel.hasMany(SaltModel, { foreignKey: 'user_id' })
   UserModel.hasMany(TodoModel, { foreignKey: 'user_id' })
   UserModel.hasOne(UserUsnModel, { foreignKey: 'user_id' })
-  UserUsnModel.hasMany(TodoUsnModel, { foreignKey: 'user_usn_id' })
+  UserModel.hasMany(TodoUsnModel, { foreignKey: 'user_id' })
 
   // await sequelize.sync({ force: true })
   await sequelize.sync()

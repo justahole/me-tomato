@@ -1,5 +1,5 @@
 import { Service, Inject } from 'typedi'
-import { Sequelize } from 'sequelize'
+import { Sequelize, Op } from 'sequelize'
 
 @Service()
 export default class AsyncService {
@@ -21,10 +21,12 @@ export default class AsyncService {
   async createTodo({
     user_id,
     name,
+  }: {
+    user_id: string
+    name: string
   }): Promise<{ usn: number; message: string }> {
-    const usn = await this.sequelize.transaction(async (transaction) => {
-      console.log('user_id', user_id, name)
-      const { id: todoID } = await this.TodoModel.create(
+    return await this.sequelize.transaction(async (transaction) => {
+      const newTodo = await this.TodoModel.create(
         {
           user_id,
           name,
@@ -32,7 +34,9 @@ export default class AsyncService {
         { transaction }
       )
 
-      const { usn, usn_id } = await this.UserUsnModel.findOne({
+      const todoID = newTodo.id
+
+      const { usn } = await this.UserUsnModel.findOne({
         where: { user_id },
       })
 
@@ -41,26 +45,118 @@ export default class AsyncService {
         {
           usn: usn + 1,
         },
-        { where: { user_id, usn }, transaction }
+        { where: { user_id, usn } },
+        { transaction }
       )
 
-      await this.TodoUsnModel.create(
+      const { index, usn: todoUsn } = await this.TodoUsnModel.create(
         {
           usn: usn + 1,
           resource_id: todoID,
-          user_usn_id: usn_id,
+          user_id: user_id,
         },
         {
           transaction,
         }
       )
 
-      return usn
+      return { ...newTodo.dataValues, usn: todoUsn, index }
+    })
+  }
+
+  async deleteTodo({ user_id, todoID }) {
+    return await this.sequelize.transaction(async (transaction) => {
+      const exist =
+        (await this.TodoModel.destroy(
+          {
+            where: {
+              user_id: user_id,
+              id: todoID,
+            },
+          },
+          { transaction }
+        )) !== 0
+
+      if (!exist) {
+        /**
+         * @TODO delete export
+         */
+        throw 'todoID is not exist'
+      }
+
+      const { usn } = await this.UserUsnModel.findOne({
+        where: { user_id },
+      })
+
+      await this.UserUsnModel.update(
+        {
+          usn: usn + 1,
+        },
+        { where: { user_id, usn } },
+        { transaction }
+      )
+
+      await this.TodoUsnModel.update(
+        {
+          usn: usn + 1,
+          deleted: true,
+        },
+        {
+          where: {
+            resource_id: todoID,
+            user_id: user_id,
+          },
+        },
+        {
+          transaction,
+        }
+      )
+
+      return {
+        usn: usn + 1,
+      }
+    })
+  }
+
+  async updateTodo({ user_id, todoID }) {
+    return { user_id, todoID }
+  }
+
+  async getUSNChunkAfterUSN({ user_id, afterUsn }) {
+    const todos = await this.TodoUsnModel.findAll({
+      where: {
+        user_id,
+        usn: {
+          [Op.gt]: afterUsn,
+        },
+      },
     })
 
-    return {
-      message: 'successfully',
-      usn,
-    }
+    const existTodos = todos.filter((todo) => !todo.deleted)
+
+    const todosDetails =
+      existTodos.length !== 0
+        ? await this.TodoModel.findAll({
+            where: {
+              id: {
+                [Op.in]: existTodos.map((todo) => todo.resource_id),
+              },
+            },
+          })
+        : []
+
+    const todosDetailsDit = todosDetails.reduce((dist, { dataValues }) => {
+      return {
+        ...dist,
+        [dataValues.id]: dataValues,
+      }
+    }, {})
+
+    return todos.map((todo) => {
+      if (!todo.dataValues.deleted) {
+        todo.dataValues.detail = todosDetailsDit[todo.resource_id]
+      }
+      return todo.dataValues
+    })
   }
 }

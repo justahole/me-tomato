@@ -67,6 +67,7 @@
     "node": ">=12.0.0"
   },
   "_moduleAliases": {
+    "@": "dis/src/",
     "@models": "dist/src/models",
     "@services": "dist/src/services",
     "@middlewares": "dist/src/middlewares"

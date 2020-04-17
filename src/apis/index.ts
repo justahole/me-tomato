@@ -5,11 +5,11 @@ import tomato from './routes/tomato'
 // import async from './routes/async'
 
 export default () => {
-  const app = new Router()
+  const router = new Router()
 
-  auth(app)
-  tomato(app)
-  // async(app)
+  auth(router)
+  tomato(router)
+  // async(router)
 
-  return app.routes()
+  return router.routes()
 }

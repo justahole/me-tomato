@@ -47,6 +47,7 @@
       "@middlewares/*": ["./src/middlewares/*"],
       "@services/*": ["./src/services/*"],
       "@models/*": ["./src/models/*"],
+      "@root/*": ["./src/*"],
       "*": [
           "node_modules/*",
           "src/types/*"

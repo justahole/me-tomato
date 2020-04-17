@@ -1,4 +1,5 @@
 import dotenv from 'dotenv'
+import { Config } from '../interfaces/config'
 
 const result = dotenv.config()
 
@@ -6,7 +7,7 @@ if (result.error) {
   throw result.error
 }
 
-export default {
+const config: Config = {
   database: {
     password: process.env.DB_PASS,
     user: process.env.DB_USER,
@@ -26,3 +27,5 @@ export default {
     jwtSecret: process.env.JWT_SECRET,
   },
 }
+
+export default config

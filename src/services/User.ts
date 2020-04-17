@@ -1,8 +1,9 @@
-import { Service as service, Inject as inject, Container } from 'typedi'
+import { Service as service, Inject as inject } from 'typedi'
 import { Sequelize } from 'sequelize'
 import { randomBytes } from 'crypto'
 import jwt from 'jsonwebtoken'
 import argon2 from 'argon2'
+import { Config } from '@root/interfaces/config'
 
 /**
  * All user logic service
@@ -13,7 +14,8 @@ class UserService {
     @inject('UserModel') private UserModel,
     @inject('AuthModel') private AuthModel,
     @inject('SaltModel') private SaltModel,
-    @inject('sequelize') private sequelize: Sequelize
+    @inject('sequelize') private sequelize: Sequelize,
+    @inject('config') private config: Config
   ) {}
 
   /**
@@ -114,11 +116,11 @@ class UserService {
 
     return jwt.sign(
       {
-        id: user.id, // We are gonna use this in the middleware 'isAuth'
+        id: user.id,
         name: user.name,
         exp: exp,
       },
-      Container.get('config')
+      this.config.app.jwtSecret
     )
   }
 }

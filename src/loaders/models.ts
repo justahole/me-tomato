@@ -29,7 +29,7 @@ export default async (
   UserModel.hasOne(UserUsnModel, { foreignKey: 'user_id' })
   UserUsnModel.hasMany(TodoUsnModel, { foreignKey: 'user_usn_id' })
 
-  await sequelize.sync()
+  await sequelize.sync({ force: true })
 
   return models
 }

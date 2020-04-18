@@ -12,11 +12,14 @@ export default class TodoService {
     @inject('sequelize') private sequelize: Sequelize
   ) {}
 
-  async create({ user_id, name }) {
-    const todo = await this.TodoModel.create({
-      user_id,
-      name,
-    })
+  async create({ user_id, name }, transaction?) {
+    const todo = await this.TodoModel.create(
+      {
+        user_id,
+        name,
+      },
+      transaction && { transaction }
+    )
 
     return todo
   }
@@ -56,16 +59,19 @@ export default class TodoService {
     return { offset, ...res }
   }
 
-  async delete({ user_id, id }) {
-    return await this.TodoModel.destroy({
-      where: {
-        user_id: user_id,
-        id: id,
+  async delete({ user_id, id }, transaction?) {
+    return await this.TodoModel.destroy(
+      {
+        where: {
+          user_id: user_id,
+          id: id,
+        },
       },
-    })
+      transaction && { transaction }
+    )
   }
 
-  async edit({ user_id, id, ...params }) {
+  async edit({ user_id, id, ...params }, transaction?) {
     const newFields = pick(params, ['name', 'pin', 'complete'])
 
     const wanneComplete = newFields.complete
@@ -80,7 +86,8 @@ export default class TodoService {
           user_id: user_id,
           id: id,
         },
-      }
+      },
+      transaction && { transaction }
     )
   }
 }

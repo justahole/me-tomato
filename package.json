@@ -5,7 +5,7 @@
   "scripts": {
     "test": "jest",
     "dev": "cross-env NODE_ENV=development npx concurrently -k -p \"[{name}]\" -n \"Typescript, Node\" -c \"yellow.bold,cyan.bold\" \"npm run watch-ts\" \"npm run watch-node\"",
-    "watch-node": "npx nodemon ./dist/src/app.js",
+    "watch-node": "npx nodemon --inspect ./dist/src/app.js",
     "watch-ts": "tsc --watch"
   },
   "repository": {

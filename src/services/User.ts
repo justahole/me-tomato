@@ -61,7 +61,10 @@ class UserService {
   /**
    * User SignIn with email and password
    */
-  async signIn({ email, password }) {
+  async signIn({
+    email,
+    password,
+  }): Promise<{ user: object; token: string } | string> {
     const auth = await this.AuthModel.findOne({
       where: {
         auth_type: 'mail',
@@ -71,7 +74,7 @@ class UserService {
     })
 
     if (!auth) {
-      throw new Error('Mail or password error')
+      return 'Mail or Password error'
     }
 
     const user = await this.UserModel.findByPk(auth.user_id)
@@ -82,25 +85,27 @@ class UserService {
     }
   }
 
-  async getSalt(email: string) {
-    const auth = await this.AuthModel.findOne({
-      where: {
-        auth_type: 'mail',
-        auth_id: email,
-      },
-    })
+  async getSalt(email: string): Promise<string> {
+    const { user_id } =
+      (await this.AuthModel.findOne({
+        attributes: ['user_id'],
+        where: {
+          auth_type: 'mail',
+          auth_id: email,
+        },
+      })) || {}
 
-    if (!auth) {
-      throw Error('This email has not been sign up')
+    if (!user_id) {
+      return ''
     }
 
-    const salt = await this.SaltModel.findOne({
-      where: { user_id: auth.user_id },
-    })
+    const { salt } =
+      (await this.SaltModel.findOne({
+        attributes: ['salt'],
+        where: { user_id: user_id },
+      })) || {}
 
-    if (salt) {
-      return salt.salt
-    }
+    return salt
   }
 
   generateToken(user: { id: string; name: string }) {

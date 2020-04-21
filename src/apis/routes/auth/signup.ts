@@ -11,16 +11,20 @@ export const validator = Joi.object({
   repeat_password: Joi.ref('password'),
 }).with('password', 'repeat_password')
 
+const ERROR_MAP = {
+  1062: 'This Email Had Sigh Up',
+}
+
 export const signUp = async (ctx): Promise<void> => {
   const { password, email } = ctx.request.body
   const userService = Container.get(UserService)
   try {
     ctx.body = await userService.signUp({ email, password })
   } catch (e) {
-    const hasSignUp = get(e, 'parent.errno') === 1062
-
-    if (hasSignUp) {
-      ctx.throw(400, 'This email has sigh up')
+    const errno = get(e, 'parent.errno')
+    const message = ERROR_MAP[errno]
+    if (message) {
+      ctx.throw(400, message)
     } else {
       throw e
     }

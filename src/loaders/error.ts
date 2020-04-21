@@ -11,7 +11,11 @@ export default async ({ koaApp }: { koaApp: Koa }): Promise<void> => {
       if (ctx.app.env === 'development' && is500) {
         ctx.throw(500, err.stack || err.message, { expose: true })
       } else {
-        throw err
+        ctx.status = err.status
+        ctx.body = {
+          message: err.message,
+        }
+        ctx.app.emit('error', err)
       }
     }
   })

@@ -1,6 +1,7 @@
 import Joi from '@hapi/joi'
 import { Container } from 'typedi'
 import UserService from '@services/User'
+import { isString } from 'lodash'
 
 export const validator = Joi.object({
   email: Joi.string()
@@ -12,10 +13,10 @@ export const validator = Joi.object({
 export const signIn = async (ctx): Promise<void> => {
   const { password, email } = ctx.request.body
   const userService = Container.get(UserService)
-  try {
-    const { user, token } = await userService.signIn({ email, password })
-    ctx.body = { user, token }
-  } catch (e) {
-    ctx.throw(400, e.message)
+  const result = await userService.signIn({ email, password })
+  if (isString(result)) {
+    ctx.throw(400, result)
+  } else {
+    ctx.body = result
   }
 }

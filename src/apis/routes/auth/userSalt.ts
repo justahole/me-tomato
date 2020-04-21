@@ -11,12 +11,10 @@ export const validator = Joi.object({
 export const getUserSalt = async (ctx): Promise<void> => {
   const { email } = ctx.request.query
   const userService = Container.get(UserService)
-  try {
-    const salt = await userService.getSalt(email)
-    ctx.body = { salt }
-  } catch (e) {
-    ctx.throw(400, JSON.stringify(e), {
-      detail: e,
-    })
+
+  const salt = await userService.getSalt(email)
+  ctx.body = {
+    email,
+    salt,
   }
 }

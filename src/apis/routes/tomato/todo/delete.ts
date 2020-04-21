@@ -9,10 +9,19 @@ export const validator = Joi.object({
 
 export default async (ctx): Promise<void> => {
   const todoService = Container.get(TodoService)
-  await todoService.delete({ id: ctx.params.id, user_id: ctx.state.user_id })
+  const { id } = ctx.params
+  const { user_id } = ctx.state
+  const deleteCount = await todoService.delete({
+    id: id,
+    user_id: user_id,
+  })
 
-  ctx.body = {
-    code: 0,
-    message: 'successfully',
+  if (deleteCount === 0) {
+    ctx.throw(400, `${id} is not found`)
+  } else {
+    ctx.body = {
+      code: 0,
+      message: 'successfully',
+    }
   }
 }
